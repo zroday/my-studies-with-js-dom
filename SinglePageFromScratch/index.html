@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a Single Page Website From Scratch Using HTML CSS JS</title>
     <style>
+
+        /* @tweaks page region */
+
+        body{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            
+        }
+
+        /* end @tweaks page region */
+
         /* @container region */
         .container {
             max-width: 1040px;
@@ -13,12 +26,17 @@
             margin: 0 auto;
         }
 
-        /* @end container region */
+        /* end @container region */
 
         /* @section region */
         .section {
             border: 1px solid #ddd;
             min-height: 500px;
+        }
+
+        #section1 .wrap{
+            margin-top: 90px;
+
         }
 
         #section1 {
@@ -44,7 +62,7 @@
             background-size: cover;
         }
 
-        /* @end section region */
+        /* end @section region */
 
 
         /* @nav and @header region */
@@ -83,25 +101,54 @@
             color: #fff;
         }
 
+        #nav li a.active {
+            border-bottom: 3px solid rgb(249, 249, 6);
+            color: rgb(249, 249, 6);
+        }
+
+        #nav li:active{
+            background-color: rgb(0, 115, 255);
+        }
+
         #nav li a:hover {
             color: rgb(252, 21, 21);
         }
 
-        /* @end nav region */
+        /* end @nav region */
+
+        /* @footer region */
+
+        #footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .col-1 {
+            width: 66%;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .col-2 {
+            width: 33%;
+            display: inline-block;
+        }
+
+        /* end @footer region */
 
         /* @etc region */
         .clear {
             clear: both;
         }
 
-        .wrap{
+        .wrap {
             background-color: rgba(194, 194, 194, .5);
             border-radius: 20px;
             padding: 30px;
-            margin: 40px;
-            
+            margin: 40px auto;
+            width: 70%;
         }
-
     </style>
 </head>
 
@@ -229,20 +276,42 @@
                 libero. Cras id dui. Aenean ut</p>
         </div>
     </section>
-    <footer>
+    <footer id="footer">
         <div>
-            <div class="col-1">(e) copyright Phasellus viverra nulla ut metus varius laoreet. <p>Contact us for more info</p></div>
-            <div class="col-2"><ul>
-                <li>Network 1</li>
-                <li>More Links</li>
-                <li>More Links</li>
-                <li>More Links</li>
-                <li>More Links</li>
-            </ul></div>
+            <div class="col-1">(e) copyright Phasellus viverra nulla ut metus varius laoreet. <p>Contact us for more
+                    info</p>
+            </div>
+            <div class="col-2">
+                <ul>
+                    <li>Network 1</li>
+                    <li>More Links</li>
+                    <li>More Links</li>
+                    <li>More Links</li>
+                    <li>More Links</li>
+                </ul>
+            </div>
         </div>
     </footer>
     </div>
-    <script></script>
+    <script>
+        var section = window.document.querySelectorAll('.section');
+        var sections = {};
+        section.forEach((e) => {
+            console.log(e.id, e.offsetTop);
+            sections[e.id] = e.offsetTop;
+        })
+        window.onscroll = () =>{
+            var scrollPos = window.document.documentElement.scrollTop || window.document.body.scrollTop;
+            console.log(scrollPos);
+            for(var x in sections){
+                if(sections[x] <= scrollPos){
+                    window.document.querySelector('.active').setAttribute('class',"");
+                    window.document.querySelector('a[href*='+x+']').setAttribute('class', "active");
+                }
+            }
+        }
+       
+    </script>
 </body>
 
 </html>
